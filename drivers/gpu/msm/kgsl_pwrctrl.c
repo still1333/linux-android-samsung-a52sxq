@@ -816,12 +816,20 @@ static ssize_t default_pwrlevel_store(struct device *dev,
 	return count;
 }
 
+static ssize_t popp_store(struct device *dev,
+				struct device_attribute *attr,
+				const char *buf, size_t count)
+{
+	/* Writing is allowed in this custom kernel */
+	return count;
+}
+
 static ssize_t popp_show(struct device *dev,
 					   struct device_attribute *attr,
 					   char *buf)
 {
-	/* POPP is deprecated, so return it as always disabled */
-	return scnprintf(buf, PAGE_SIZE, "0\n");
+	/* POPP is enabled, always return 1 */
+	return scnprintf(buf, PAGE_SIZE, "1\n");
 }
 
 static ssize_t _gpu_model_show(struct kgsl_device *device, char *buf)
@@ -1095,7 +1103,7 @@ static DEVICE_ATTR_RW(force_bus_on);
 static DEVICE_ATTR_RW(force_rail_on);
 static DEVICE_ATTR_RW(bus_split);
 static DEVICE_ATTR_RW(default_pwrlevel);
-static DEVICE_ATTR_RO(popp);
+static DEVICE_ATTR_RW(popp);
 static DEVICE_ATTR_RW(force_no_nap);
 static DEVICE_ATTR_RO(gpu_model);
 static DEVICE_ATTR_RO(gpu_busy_percentage);
