@@ -56,6 +56,7 @@ static int tsens_set_trip_temp(void *data, int low_temp, int high_temp)
 
 static int tsens_init(struct tsens_device *tmdev)
 {
+	return -ENODEV;
 	return tmdev->ops->hw_init(tmdev);
 }
 
